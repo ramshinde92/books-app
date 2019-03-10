@@ -1,0 +1,34 @@
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /*TODO: more specific should be moved as css modules which is supported bu Create React App*/
+}
+
+.container--alignStart {
+  justify-content: flex-start;
+}
+
+.header {
+  background: #eee;
+  padding: 20px 0;
+}
+
+.logo {
+  width: 100px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.login {
+  height: 80vh;
+  justify-content: center;
+}
