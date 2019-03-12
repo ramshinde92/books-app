@@ -2,10 +2,10 @@ import React from "react";
 import { mount } from "enzyme";
 import { StaticRouter, Redirect, Route } from "react-router-dom";
 import PrivateRoute from "./privateRoute";
-import Discover from "../discover";
+import Discover from "../discover/discover";
 
 describe("Private Route", () => {
-  it("should render Discover in Route if user is authenticated", () => {
+  it("should render Discover in Rout]e if user is authenticated", () => {
     const context = {};
     const route = mount(
       <StaticRouter context={context}>

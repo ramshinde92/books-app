@@ -1,19 +1,16 @@
+import { BASE_URL, AUTH_REQUEST_BODY } from "../constants";
+
 const authService = {
   isAuthenticated: !!localStorage.getItem("isAuthenticated"),
   authenticate() {
-    return fetch("https://ancient-springs-73658.herokuapp.com/auth", {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    return fetch(`${BASE_URL}/auth`, AUTH_REQUEST_BODY)
       .then(_ => true)
       .catch(_ => false);
   },
   get() {
     return this.isAuthenticated;
   },
+  //TODO: Rename this method
   setAuthenticated() {
     localStorage.setItem("isAuthenticated", true);
     this.isAuthenticated = true;

@@ -1,4 +1,5 @@
 import authService from "./authService";
+import { BASE_URL, AUTH_REQUEST_BODY } from "../constants";
 
 describe("Auth Service", () => {
   it("should set isAuthenticated to false initially", () => {
@@ -13,14 +14,8 @@ describe("Auth Service", () => {
     authService.authenticate();
     expect(global.fetch).toHaveBeenCalled();
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://ancient-springs-73658.herokuapp.com/auth",
-      {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
+      `${BASE_URL}/auth`,
+      AUTH_REQUEST_BODY
     );
     process.nextTick(() => {
       expect(global.fetch()).resolves.toEqual({ status_code: 200 });
@@ -37,14 +32,8 @@ describe("Auth Service", () => {
     authService.authenticate();
     expect(global.fetch).toHaveBeenCalled();
     expect(global.fetch).toHaveBeenCalledWith(
-      "https://ancient-springs-73658.herokuapp.com/auth",
-      {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
+      `${BASE_URL}/auth`,
+      AUTH_REQUEST_BODY
     );
     process.nextTick(() => {
       expect(global.fetch()).rejects.toEqual({ status_code: 404 });

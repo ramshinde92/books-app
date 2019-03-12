@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/header/header";
 import Login from "./components/login/login";
-import Discover from "./components/discover";
+import Discover from "./components/discover/discover";
 import PrivateRoute from "./components/privateRoute/privateRoute";
 // css imports
 import "./app.css";
