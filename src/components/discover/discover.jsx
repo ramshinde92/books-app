@@ -10,8 +10,16 @@ class Discover extends Component {
   };
 
   componentDidMount() {
-    bookService.getCategories().then(categories => {
-      this.setState({ categories });
+    const getAll = Promise.all([
+      bookService.getCategories(),
+      bookService.getAllBooks()
+    ]);
+
+    getAll.then(([categories, books]) => {
+      this.setState({
+        categories,
+        books
+      });
     });
   }
 
