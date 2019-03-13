@@ -10,6 +10,7 @@ describe("Header Component", () => {
     const container = component.find(".container");
 
     expect(container.find("img").props()).toEqual({
+      alt: "blinkist logo",
       className: "logo",
       src: "logo.webp"
     });
@@ -17,6 +18,7 @@ describe("Header Component", () => {
     expect(container.find(Link).getElement().props).toEqual({
       to: "/login",
       children: "Login",
+      className: "link",
       replace: false
     });
   });
@@ -27,13 +29,15 @@ describe("Header Component", () => {
     const container = component.find(".container");
 
     expect(container.find("img").props()).toEqual({
+      alt: "blinkist logo",
       className: "logo",
       src: "logo.webp"
     });
 
     expect(container.find(Link).getElement().props).toEqual({
       to: "/",
-      children: "Discover",
+      children: "Discover Books",
+      className: "link",
       replace: false
     });
   });

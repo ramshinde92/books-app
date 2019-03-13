@@ -21,6 +21,16 @@ const bookService = {
     }
   },
 
+  async getBook(bookId) {
+    try {
+      const response = await fetch(`${BASE_URL}/books/${bookId}`);
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      return {};
+    }
+  },
+
   async getActualBooks(bookIds) {
     //TODO: add error handling here
     const fetchBooks = bookIds.map(id => fetch(`${BASE_URL}/books/${id}`));

@@ -4,12 +4,16 @@
   display: flex;
 }
 
+.container--block {
+  display: block;
+}
+
 .container--alignStart {
   justify-content: flex-start;
 }
 
 .header {
-  background: #eee;
+  background: #f1f6f4;
   padding: 20px 0;
 }
 
@@ -34,6 +38,16 @@ p {
 .login {
   height: 80vh;
   justify-content: center;
+}
+
+.primary-button {
+  padding: 14px 20px;
+  border-radius: 2px;
+  background-color: #2ce080;
+  border: #2ce080 2px solid;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 1024px) {

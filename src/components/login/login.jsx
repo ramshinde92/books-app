@@ -21,7 +21,9 @@ const Login = props => {
   return (
     <div className="login container">
       <div className="center v-align-center">
-        <button onClick={login}>Login</button>
+        <button className="primary-button" onClick={login}>
+          Login
+        </button>
       </div>
     </div>
   );

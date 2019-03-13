@@ -7,6 +7,15 @@ const authService = {
       .then(_ => true)
       .catch(_ => false);
   },
+  async subscription() {
+    try {
+      const response = await fetch(`${BASE_URL}/me`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
   get() {
     return this.isAuthenticated;
   },

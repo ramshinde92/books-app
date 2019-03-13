@@ -1,0 +1,54 @@
+.container {
+  display: block;
+  position: relative;
+}
+
+.buySubscription {
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 40%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(237, 237, 237, 0.74);
+  text-align: center;
+  background: -moz-linear-gradient(
+    top,
+    rgba(237, 237, 237, 0.74) 0%,
+    rgba(246, 246, 246, 0.86) 47%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, rgba(237, 237, 237, 0.74)),
+    color-stop(47%, rgba(246, 246, 246, 0.86)),
+    color-stop(100%, rgba(255, 255, 255, 1))
+  );
+  background: -webkit-linear-gradient(
+    top,
+    rgba(237, 237, 237, 0.74) 0%,
+    rgba(246, 246, 246, 0.86) 47%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: -o-linear-gradient(
+    top,
+    rgba(237, 237, 237, 0.74) 0%,
+    rgba(246, 246, 246, 0.86) 47%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    top,
+    rgba(237, 237, 237, 0.74) 0%,
+    rgba(246, 246, 246, 0.86) 47%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(237, 237, 237, 0.74) 0%,
+    rgba(246, 246, 246, 0.86) 47%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff', GradientType=0 );
+}

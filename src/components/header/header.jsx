@@ -4,15 +4,19 @@ import styles from "./header.module.css";
 
 const Header = props => {
   const el = props.isAuthenticated ? (
-    <Link to="/">Discover</Link>
+    <Link className={styles.link} to="/">
+      Discover Books
+    </Link>
   ) : (
-    <Link to="/login">Login</Link>
+    <Link className={styles.link} to="/login">
+      Login
+    </Link>
   );
 
   return (
     <div className="header">
       <div className={`container ${styles.container}`}>
-        <img className="logo" src="logo.webp" />
+        <img className="logo" alt="blinkist logo" src="logo.webp" />
         {el}
       </div>
     </div>

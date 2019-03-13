@@ -4,9 +4,10 @@ import Header from "./components/header/header";
 import Login from "./components/login/login";
 import Discover from "./components/discover/discover";
 import PrivateRoute from "./components/privateRoute/privateRoute";
+import Book from "./components/book/book";
+import authService from "./services/authService";
 // css imports
 import "./app.css";
-import authService from "./services/authService";
 
 class App extends Component {
   state = {
@@ -40,6 +41,13 @@ class App extends Component {
             path="/"
             exact
             component={Discover}
+          />
+
+          <PrivateRoute
+            isAuthenticated={isAuthenticated}
+            path="/read/:id"
+            exact
+            component={Book}
           />
         </div>
       </Router>
