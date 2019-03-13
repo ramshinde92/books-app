@@ -38,6 +38,7 @@ p {
 .login {
   height: 80vh;
   justify-content: center;
+  align-items: center;
 }
 
 .primary-button {

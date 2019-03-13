@@ -12,10 +12,6 @@ describe("Login Component", () => {
     const login = component.find(".login");
 
     expect(login.hasClass("container")).toBeTruthy();
-    expect(login.children().getElement().props.className).toEqual(
-      "center v-align-center"
-    );
-
     expect(login.find("button").text()).toEqual("Login");
   });
 
