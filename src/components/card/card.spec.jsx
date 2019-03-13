@@ -5,7 +5,7 @@ import Card from "./card";
 describe("Card Component", () => {
   it("should render card with correct props", () => {
     const component = shallow(
-      <Card imgUrl="http://sampleImage.com" title="Duck" read={jest.fn()} />
+      <Card id={"1"} imgUrl="http://sampleImage.com" title="Duck" />
     );
 
     expect(component.find("img").props()).toEqual({
@@ -20,20 +20,8 @@ describe("Card Component", () => {
     });
   });
 
-  it("should call read on click of button", () => {
-    const read = jest.fn();
-    const component = shallow(<Card read={read} />);
-
-    const button = component.find("button");
-
-    button.simulate("click");
-
-    expect(read).toHaveBeenCalled();
-  });
-
   it("should render with default props", () => {
-    const read = jest.fn();
-    const component = shallow(<Card read={read} />);
+    const component = shallow(<Card id={"1"} />);
 
     expect(component.find("img").props()).toEqual({
       alt: "No Card",
@@ -46,15 +34,10 @@ describe("Card Component", () => {
       children: "No Card"
     });
 
-    expect(component.find("button").props()).toEqual({
-      children: "Read",
-      onClick: read
+    expect(component.find(".cardCTA").props()).toEqual({
+      className: "cardCTA",
+      href: "read/1",
+      children: "Read"
     });
-  });
-
-  it("should not render button if read prop is not passed", () => {
-    const component = shallow(<Card />);
-
-    expect(component.find("button").exists()).toBeFalsy();
   });
 });

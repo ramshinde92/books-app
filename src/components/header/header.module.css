@@ -2,3 +2,8 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.link {
+  color: #666;
+  font-weight: 600;
+}

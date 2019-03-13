@@ -1,19 +1,22 @@
 import React from "react";
-import style from "./Card.module.css";
 import PropTypes from "prop-types";
+import style from "./card.module.css";
 
 const Card = props => {
+  const { id, title, imgUrl } = props;
+  const { card, img, title: cssForTitle, cardCTA } = style;
+
   return (
-    <div className={style.card}>
+    <div className={card}>
       <p>
-        <img className={style.img} src={props.imgUrl} alt={props.title} />
+        <img className={img} src={imgUrl} alt={title} />
       </p>
-      <p className={style.title}>{props.title}</p>
-      {props.read ? (
-        <p>
-          <button onClick={props.read}>Read</button>
-        </p>
-      ) : null}
+      <p className={cssForTitle}>{title}</p>
+      <p>
+        <a className={cardCTA} href={`read/${id}`}>
+          Read
+        </a>
+      </p>
     </div>
   );
 };
@@ -21,7 +24,7 @@ const Card = props => {
 Card.propTypes = {
   imgUrl: PropTypes.string,
   title: PropTypes.string,
-  read: PropTypes.func
+  id: PropTypes.string.isRequired
 };
 
 Card.defaultProps = {

@@ -8,7 +8,7 @@ describe("Discover Component", () => {
     let categorySpy, booksSpy, promiseAllSpy;
 
     const categoryResponse = [{ id: 1, title: "Productivity" }];
-    const booksResponse = [{ id: 1, title: "Book 1" }];
+    const booksResponse = [{ id: "1", title: "Book 1" }];
     const promiseAllResponse = Promise.resolve([
       categoryResponse,
       booksResponse
@@ -82,8 +82,11 @@ describe("Discover Component", () => {
 
   it("should fetch books on click of category", async () => {
     const categories = [{ id: 1, title: "Productivity" }];
-    const books = [{ id: 1, title: "Book 1" }];
-    const newBooks = [{ id: 1, title: "Book 1" }, { id: 2, title: "Book 2" }];
+    const books = [{ id: "1", title: "Book 1" }];
+    const newBooks = [
+      { id: "1", title: "Book 1" },
+      { id: "2", title: "Book 2" }
+    ];
 
     const spy = jest
       .spyOn(bookService, "getBooks")

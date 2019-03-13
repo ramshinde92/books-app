@@ -57,11 +57,7 @@ class Discover extends Component {
             {this.state.books.map(el => {
               return (
                 <li key={el.id}>
-                  <Card
-                    title={el.title}
-                    imgUrl={el.image_url}
-                    read={() => this.read(el.id)}
-                  />
+                  <Card title={el.title} imgUrl={el.image_url} id={el.id} />
                 </li>
               );
             })}

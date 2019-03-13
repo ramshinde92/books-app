@@ -89,7 +89,31 @@ describe("Book Service", () => {
     });
 
     expect.assertions(1);
+    //TODO:rename res
     const res = await bookService.getAllBooks();
     expect(res).toEqual(books);
+  });
+
+  it("should fetch book by ID", async () => {
+    global.fetch = jest.fn().mockImplementation(() => {
+      return new Promise((resolve, reject) => {
+        resolve({
+          json: function() {
+            return Promise.resolve({
+              id: 1,
+              title: "book1"
+            });
+          }
+        });
+      });
+    });
+
+    expect.assertions(1);
+
+    const response = await bookService.getBook();
+    expect(response).toEqual({
+      id: 1,
+      title: "book1"
+    });
   });
 });

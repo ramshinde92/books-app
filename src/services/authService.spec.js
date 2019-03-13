@@ -64,6 +64,24 @@ describe("Auth Service", () => {
     });
   });
 
+  it("should call subscription with success", async () => {
+    global.fetch = jest.fn().mockImplementation(() => {
+      return new Promise((resolve, reject) => {
+        resolve({
+          json: function() {
+            return Promise.resolve({ access_type: "free" });
+          }
+        });
+      });
+    });
+
+    expect.assertions(1);
+    const response = await authService.subscription();
+
+    expect(response).toEqual({ access_type: "free" });
+    global.fetch.mockClear();
+  });
+
   describe("isAuthenticated Flag", () => {
     beforeEach(() => {
       jest.spyOn(Storage.prototype, "setItem");
