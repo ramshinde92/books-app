@@ -82,6 +82,21 @@ describe("Auth Service", () => {
     global.fetch.mockClear();
   });
 
+  it("should call subscription with failure", async () => {
+    global.fetch = jest.fn().mockImplementation(() => {
+      return new Promise((resolve, reject) => {
+        reject();
+      });
+    });
+
+    expect.assertions(1);
+    try {
+      await authService.subscription();
+    } catch (err) {
+      expect(err.message).toEqual("Unable to fetch subscription");
+    }
+  });
+
   describe("isAuthenticated Flag", () => {
     beforeEach(() => {
       jest.spyOn(Storage.prototype, "setItem");

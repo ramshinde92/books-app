@@ -13,13 +13,12 @@ const authService = {
       const data = await response.json();
       return data;
     } catch (error) {
-      throw new Error(error);
+      throw new Error("Unable to fetch subscription");
     }
   },
   get() {
     return this.isAuthenticated;
   },
-  //TODO: Rename this method
   setAuthenticated() {
     localStorage.setItem("isAuthenticated", true);
     this.isAuthenticated = true;

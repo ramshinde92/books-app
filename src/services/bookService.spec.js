@@ -2,6 +2,11 @@ import bookService from "./bookService";
 
 describe("Book Service", () => {
   let spy;
+  const rejectedPromiseFn = jest.fn().mockImplementation(() => {
+    return new Promise((resolve, reject) => {
+      reject();
+    });
+  });
   afterEach(() => {
     global.fetch.mockClear();
   });
@@ -19,9 +24,31 @@ describe("Book Service", () => {
       });
     });
     expect.assertions(1);
-    const res = await bookService.getCategories([1, 2]);
+    const response = await bookService.getCategories([1, 2]);
 
-    expect(res).toEqual([{ id: 1, category: "Productivity" }]);
+    expect(response).toEqual([{ id: 1, category: "Productivity" }]);
+  });
+
+  it("should not fetch categories", async () => {
+    global.fetch = rejectedPromiseFn;
+
+    expect.assertions(1);
+    try {
+      await bookService.getCategories();
+    } catch (err) {
+      expect(err.message).toEqual("Unable to fetch categories");
+    }
+  });
+
+  it("should not fetch book IDs", async () => {
+    global.fetch = rejectedPromiseFn;
+
+    expect.assertions(1);
+    try {
+      await bookService.getBooks(123);
+    } catch (err) {
+      expect(err.message).toEqual("Unable to fetch books");
+    }
   });
 
   it("should fetch book IDs", async () => {
@@ -44,9 +71,9 @@ describe("Book Service", () => {
       .spyOn(bookService, "getActualBooks")
       .mockImplementation(() => mockFetchResponse);
 
-    const res = await bookService.getBooks(123);
+    const response = await bookService.getBooks(123);
 
-    expect(res).toEqual(mockSuccessResponse);
+    expect(response).toEqual(mockSuccessResponse);
     spy.mockRestore();
   });
 
@@ -62,8 +89,22 @@ describe("Book Service", () => {
     });
 
     expect.assertions(1);
-    const res = await bookService.getActualBooks([1, 2]);
-    expect(res).toEqual([{ title: "Hello World" }, { title: "Hello World" }]);
+    const response = await bookService.getActualBooks([1, 2]);
+    expect(response).toEqual([
+      { title: "Hello World" },
+      { title: "Hello World" }
+    ]);
+  });
+
+  it("should not fetch books by IDs", async () => {
+    global.fetch = rejectedPromiseFn;
+
+    expect.assertions(1);
+    try {
+      await bookService.getActualBooks();
+    } catch (err) {
+      expect(err.message).toEqual("Unable to fetch books by IDs");
+    }
   });
 
   it("should fetch all books", async () => {
@@ -89,9 +130,19 @@ describe("Book Service", () => {
     });
 
     expect.assertions(1);
-    //TODO:rename res
-    const res = await bookService.getAllBooks();
-    expect(res).toEqual(books);
+    const response = await bookService.getAllBooks();
+    expect(response).toEqual(books);
+  });
+
+  it("should not fetch all books", async () => {
+    global.fetch = rejectedPromiseFn;
+
+    expect.assertions(1);
+    try {
+      await bookService.getAllBooks();
+    } catch (err) {
+      expect(err.message).toEqual("Unable to fetch all books");
+    }
   });
 
   it("should fetch book by ID", async () => {
@@ -115,5 +166,16 @@ describe("Book Service", () => {
       id: 1,
       title: "book1"
     });
+  });
+
+  it("should not fetch book", async () => {
+    global.fetch = rejectedPromiseFn;
+
+    expect.assertions(1);
+    try {
+      await bookService.getBook();
+    } catch (err) {
+      expect(err.message).toMatch("Unable to fetch book");
+    }
   });
 });

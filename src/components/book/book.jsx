@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import authService from "../../services/authService";
 import bookService from "../../services/bookService";
 import style from "./book.module.css";
@@ -6,11 +6,10 @@ import style from "./book.module.css";
 class Book extends Component {
   constructor(props) {
     super(props);
-    this.state = { title: "", content: "", isPremium: "" };
+    this.state = { title: "", content: "", isPremium: "", error: "" };
   }
 
   componentDidMount() {
-    //TODO:write catch
     this.fetchBook();
   }
 
@@ -29,24 +28,41 @@ class Book extends Component {
           content,
           isPremium
         });
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
       });
   }
 
   render() {
+    const { error, content, title, isPremium } = this.state;
+
     const hasSubscription =
-      this.state.isPremium === "premium" ? null : (
+      isPremium === "premium" ? null : (
         <div className={style.buySubscription}>
           <button className="primary-button">Subscribe to read</button>
         </div>
       );
 
-    return (
+    const errorEl = (
+      <Fragment>
+        <p className="container">{error}</p>
+      </Fragment>
+    );
+
+    const el = (
       <div className={`container container--block ${style.container}`}>
-        <h2>{this.state.title}</h2>
-        <p className="content">{this.state.content}</p>
+        <h2>{title}</h2>
+        <p className="content">{content}</p>
         {hasSubscription}
       </div>
     );
+
+    if (error) {
+      return errorEl;
+    } else {
+      return el;
+    }
   }
 }
 

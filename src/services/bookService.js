@@ -7,7 +7,7 @@ const bookService = {
       const { categories } = await response.json();
       return categories;
     } catch (err) {
-      return [];
+      throw new Error("Unable to fetch categories");
     }
   },
 
@@ -17,7 +17,7 @@ const bookService = {
       const { books } = await response.json();
       return books;
     } catch (err) {
-      return [];
+      throw new Error("Unable to fetch all books");
     }
   },
 
@@ -27,16 +27,19 @@ const bookService = {
       const data = await response.json();
       return data;
     } catch (err) {
-      return {};
+      throw new Error("Unable to fetch book");
     }
   },
 
   async getActualBooks(bookIds) {
-    //TODO: add error handling here
-    const fetchBooks = bookIds.map(id => fetch(`${BASE_URL}/books/${id}`));
-    const data = await Promise.all(fetchBooks);
-    const arr = await Promise.all(data.map(el => el.json()));
-    return arr;
+    try {
+      const fetchBooks = bookIds.map(id => fetch(`${BASE_URL}/books/${id}`));
+      const data = await Promise.all(fetchBooks);
+      const arr = await Promise.all(data.map(el => el.json()));
+      return arr;
+    } catch (err) {
+      throw new Error("Unable to fetch books by IDs");
+    }
   },
 
   async getBooks(categoryId) {
@@ -45,7 +48,7 @@ const bookService = {
       const { book_ids } = await response.json();
       return this.getActualBooks(book_ids);
     } catch (err) {
-      return [];
+      throw new Error("Unable to fetch books");
     }
   }
 };
