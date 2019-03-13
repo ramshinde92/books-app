@@ -16,7 +16,7 @@ const Header = props => {
   return (
     <div className="header">
       <div className={`container ${styles.container}`}>
-        <img className="logo" alt="blinkist logo" src="logo.webp" />
+        <img className="logo" alt="blinkist logo" src="../logo.webp" />
         {el}
       </div>
     </div>

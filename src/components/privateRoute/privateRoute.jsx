@@ -8,7 +8,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={props => {
         if (isAuthenticated) {
-          return <Component {...props} />; //TODO: why we need to pass component
+          return <Component {...props} />;
         } else {
           return (
             <Redirect

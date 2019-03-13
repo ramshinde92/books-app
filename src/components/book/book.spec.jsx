@@ -33,7 +33,8 @@ describe("Book Component", () => {
         expect(component.instance().state).toEqual({
           title: "Book 1",
           content: "test content",
-          isPremium: "free"
+          isPremium: "free",
+          error: ""
         });
       });
     });
@@ -81,6 +82,50 @@ describe("Book Component", () => {
         bookServiceSpy.mockRestore();
         done();
       });
+    });
+  });
+
+  it("should render with error message if bookService fails", async done => {
+    const bookServiceSpy = jest
+      .spyOn(bookService, "getBook")
+      .mockImplementation(() => Promise.reject({ message: "Unable to fetch" }));
+
+    const subscriptionSpy = jest
+      .spyOn(authService, "subscription")
+      .mockImplementation(() => Promise.resolve({ access_type: "premium" }));
+
+    const component = await mount(<Book match={match} />);
+
+    process.nextTick(() => {
+      component.update();
+      expect(component.find("p.container").text()).toEqual("Unable to fetch");
+      subscriptionSpy.mockRestore();
+      bookServiceSpy.mockRestore();
+      done();
+    });
+  });
+
+  it("should render with error message if authService fails", async done => {
+    const bookServiceSpy = jest
+      .spyOn(bookService, "getBook")
+      .mockImplementation(() => Promise.resolve(bookResponse));
+
+    const subscriptionSpy = jest
+      .spyOn(authService, "subscription")
+      .mockImplementation(() =>
+        Promise.reject({ message: "Unable to get subscription" })
+      );
+
+    const component = await mount(<Book match={match} />);
+
+    process.nextTick(() => {
+      component.update();
+      expect(component.find("p.container").text()).toEqual(
+        "Unable to get subscription"
+      );
+      subscriptionSpy.mockRestore();
+      bookServiceSpy.mockRestore();
+      done();
     });
   });
 });
