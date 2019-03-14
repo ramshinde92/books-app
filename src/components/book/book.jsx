@@ -46,7 +46,7 @@ class Book extends Component {
 
     const errorEl = (
       <Fragment>
-        <p className="container">{error}</p>
+        <p className="container error">{error}</p>
       </Fragment>
     );
 

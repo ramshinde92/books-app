@@ -7,7 +7,7 @@ describe("Discover Component", () => {
   describe("On Mount", () => {
     let categorySpy, booksSpy, promiseAllSpy;
 
-    const categoryResponse = [{ id: 1, title: "Productivity" }];
+    const categoryResponse = [{ id: "1", title: "Productivity" }];
     const booksResponse = [{ id: "1", title: "Book 1" }];
     const promiseAllResponse = Promise.resolve([
       categoryResponse,
@@ -39,7 +39,8 @@ describe("Discover Component", () => {
 
       expect(component.instance().state).toEqual({
         books: booksResponse,
-        categories: categoryResponse
+        categories: categoryResponse,
+        error: ""
       });
     });
 
@@ -78,6 +79,19 @@ describe("Discover Component", () => {
         "https://unsplash.com/photos/YM1z9tNvPp4"
       );
     });
+
+    it("should display error message if any of the service gives error", async () => {
+      promiseAllSpy = jest
+        .spyOn(Promise, "all")
+        .mockImplementation(() => Promise.reject({ message: "failed" }));
+
+      const component = await mount(<Discover />);
+
+      process.nextTick(() => {
+        component.update();
+        expect(component.find("p.container").text()).toEqual("failed");
+      });
+    });
   });
 
   it("should fetch books on click of category", async () => {
@@ -108,5 +122,35 @@ describe("Discover Component", () => {
     expect(component.instance().state.books).toEqual(newBooks);
 
     spy.mockRestore();
+  });
+
+  it("should display error if api fails on click of category", async () => {
+    const categories = [{ id: 1, title: "Productivity" }];
+
+    const spy = jest
+      .spyOn(bookService, "getBooks")
+      .mockImplementation(() =>
+        Promise.reject({ message: "Failed to fetch book" })
+      );
+
+    const component = mount(<Discover />);
+
+    component.setState({
+      categories
+    });
+
+    await component.update();
+
+    component.find(".link").simulate("click", {
+      preventDefault: () => {}
+    });
+
+    process.nextTick(() => {
+      component.update();
+      expect(component.find("p.container").text()).toEqual(
+        "Failed to fetch book"
+      );
+      spy.mockRestore();
+    });
   });
 });
