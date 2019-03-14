@@ -6,30 +6,44 @@ import styles from "./discover.module.css";
 class Discover extends Component {
   state = {
     categories: [],
-    books: []
+    books: [],
+    error: ""
   };
 
   componentDidMount() {
-    const getAll = Promise.all([
-      bookService.getCategories(),
-      bookService.getAllBooks()
-    ]);
+    const categories = bookService.getCategories();
+    const books = bookService.getAllBooks();
 
-    getAll.then(([categories, books]) => {
-      this.setState({
-        categories,
-        books
+    const getAll = Promise.all([categories, books]);
+
+    getAll
+      .then(([categories, books]) => {
+        this.setState({
+          categories,
+          books
+        });
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
       });
-    });
   }
 
   getBooks(id) {
-    bookService.getBooks(id).then(books => {
-      this.setState({ books });
-    });
+    bookService
+      .getBooks(id)
+      .then(books => {
+        this.setState({ books });
+      })
+      .catch(error => {
+        this.setState({ error: error.message });
+      });
   }
 
   render() {
+    if (this.state.error) {
+      return <p className="container error">{this.state.error}</p>;
+    }
+
     return (
       <div className={`${styles.container} container `}>
         <div className={styles.sideBar}>

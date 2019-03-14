@@ -51,6 +51,12 @@ p {
   cursor: pointer;
 }
 
+.error {
+  color: red;
+  border: 1px solid red;
+  padding: 20px;
+}
+
 @media only screen and (max-width: 1024px) {
   .container {
     max-width: 760px;
